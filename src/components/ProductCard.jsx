@@ -3,11 +3,11 @@ import React from "react";
 const ProductCard = ({ product }) => {
   const { description, image, mrp, price, productName } = product;
   return (
-    <div className="border border-[#f5f5f5] shadow-md shadow-black/20">
+    <div className="border border-[#f5f5f5] shadow-md shadow-black/20 rounded">
       {/* product image */}
       <div>
         <img
-          className="w-full h-[200px] object-cover object-center cursor-pointer"
+          className="rounded-t w-full h-[200px] object-cover object-center cursor-pointer"
           src={"http://rjtmobile.com/grocery/images/" + image}
           alt={image}
         />
@@ -28,7 +28,7 @@ const ProductCard = ({ product }) => {
         {mrp && (
             <div className="text-center mt-3">
           <span className="inline-block bg-green-500 py-1 px-3 rounded text-white">
-            save {(((mrp - price) / mrp) * 100).toFixed(0)}%
+            save {Math.ceil((((mrp - price) / mrp) * 100))}%
           </span>
             </div>
         )}
