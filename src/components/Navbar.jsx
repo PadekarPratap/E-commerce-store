@@ -11,12 +11,12 @@ const Navbar = () => {
       <div className="w-full sticky top-0 z-[999] h-[60px] bg-black/95 text-white">
         <div className="flex items-center justify-between max-w-[1250px] mx-auto px-6 h-full space-x-8">
           <div>
-            <h2 onClick={() => navigate('/')} className="text-2xl font-bold font-mono cursor-pointer">BrandName</h2>
+            <h2 onClick={() => navigate('/')} className="text-2xl font-bold font-mono cursor-pointer uppercase">React Store</h2>
           </div>
           <div className="hidden sm:block">
             <ul className="flex space-x-5">
               <li><NavLink className={'cursor-pointer'} to={'/'}>Home</NavLink></li>
-              <li><NavLink className={'cursor-pointer'} to={'/'}>Products</NavLink></li>
+              <li><NavLink className={'cursor-pointer'} to={'/products'}>Products</NavLink></li>
               <li><NavLink className={'cursor-pointer'} to={'/about'}>About</NavLink></li>
               <li><NavLink className={'cursor-pointer'} to={'/contact'}>Contact</NavLink></li>
             </ul>

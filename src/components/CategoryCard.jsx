@@ -16,7 +16,7 @@ const CategoryCard = ({category}) => {
         {/* card name and desc(if any)  */}
         <div className='text-center p-4'>
             <h3 className='text-center tracking-widest uppercase mb-4'>{catName}</h3>
-            <button onClick={() => navigate('/product/cat/' + catId )} className='bg-black text-white px-4 py-1'>VIEW</button>
+            <button onClick={() => navigate('/products/cat/' + catId )} className='bg-black text-white px-4 py-1'>VIEW</button>
         </div>
     </div>
   )

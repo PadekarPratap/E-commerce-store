@@ -25,7 +25,7 @@ const ProductCard = ({ product }) => {
         >
           {productName}
         </h3>
-        <p>{description.slice(0, 65)}...</p>
+        <p>{description ? description.slice(0, 65)+ "..." : "No description available"}</p>
         <p
           role="button"
           onClick={() => navigate("/products/details/" + _id)}

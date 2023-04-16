@@ -9,7 +9,7 @@ const ContactsPage = () => {
       <div className="container mx-auto px-4 my-[2.5rem]">
         <div className="grid lg:grid-cols-2 gap-8">
           <div>
-            <img className="w-full h-full" src={ContactUS} alt="ContactUSImg" />
+            <img className="w-full h-full lg:object-cover lg:object-center xl:object-fill" src={ContactUS} alt="ContactUSImg" />
           </div>
           <div>
             <h2 className="text-2xl font-bold font-mono">Contact Us</h2>
