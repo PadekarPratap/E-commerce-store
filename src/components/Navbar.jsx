@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { HiMenu } from "react-icons/hi";
 import { HiOutlineXMark } from "react-icons/hi2";
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -13,10 +14,10 @@ const Navbar = () => {
           </div>
           <div className="hidden sm:block">
             <ul className="flex space-x-5">
-              <li>Home</li>
-              <li>Products</li>
-              <li>About</li>
-              <li>Contact</li>
+              <li><NavLink className={'cursor-pointer'} to={'/'}>Home</NavLink></li>
+              <li><NavLink className={'cursor-pointer'} to={'/product/cat/:catId'}>Products</NavLink></li>
+              <li><NavLink className={'cursor-pointer'} to={'/about'}>About</NavLink></li>
+              <li><NavLink className={'cursor-pointer'} to={'/'}>Contact</NavLink></li>
             </ul>
           </div>
 
