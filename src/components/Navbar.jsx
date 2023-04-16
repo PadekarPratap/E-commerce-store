@@ -1,21 +1,22 @@
 import React, { useState } from "react";
 import { HiMenu } from "react-icons/hi";
 import { HiOutlineXMark } from "react-icons/hi2";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const navigate = useNavigate()
   const [isNavOpen, setIsNavOpen] = useState(false);
   return (
     <>
       <div className="w-full sticky top-0 z-[999] h-[60px] bg-black/95 text-white">
         <div className="flex items-center justify-between max-w-[1250px] mx-auto px-6 h-full space-x-8">
           <div>
-            <h2 className="text-2xl font-bold font-mono">BrandName</h2>
+            <h2 onClick={() => navigate('/')} className="text-2xl font-bold font-mono cursor-pointer">BrandName</h2>
           </div>
           <div className="hidden sm:block">
             <ul className="flex space-x-5">
               <li><NavLink className={'cursor-pointer'} to={'/'}>Home</NavLink></li>
-              <li><NavLink className={'cursor-pointer'} to={'/product/cat/:catId'}>Products</NavLink></li>
+              <li><NavLink className={'cursor-pointer'} to={'/'}>Products</NavLink></li>
               <li><NavLink className={'cursor-pointer'} to={'/about'}>About</NavLink></li>
               <li><NavLink className={'cursor-pointer'} to={'/contact'}>Contact</NavLink></li>
             </ul>
