@@ -17,7 +17,7 @@ const Navbar = () => {
               <li><NavLink className={'cursor-pointer'} to={'/'}>Home</NavLink></li>
               <li><NavLink className={'cursor-pointer'} to={'/product/cat/:catId'}>Products</NavLink></li>
               <li><NavLink className={'cursor-pointer'} to={'/about'}>About</NavLink></li>
-              <li><NavLink className={'cursor-pointer'} to={'/'}>Contact</NavLink></li>
+              <li><NavLink className={'cursor-pointer'} to={'/contact'}>Contact</NavLink></li>
             </ul>
           </div>
 
