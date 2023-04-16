@@ -8,11 +8,9 @@ const Header = () => {
     const index = isLastImage ? 0 : currentIndex + 1;
     setCurrentIndex(index);
   };
-
+  
   useEffect(() => {
-    const timer = setInterval(() => {
-      changeBackground();
-    }, 6000);
+    const timer = setInterval(changeBackground, 5000);
     return () => {
       clearInterval(timer);
     };

@@ -1,17 +1,19 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import ProductCard from './ProductCard'
+import { fetchAPIData } from '../utils/api'
+import { endpoints } from '../utils/endpoints'
+import { useParams } from 'react-router-dom'
 
 const Products = () => {
-    const catId = '2'
+    const {catId} = useParams()
     const [products, setProducts] = useState([])
-    const fetchProducts = async () =>{
-        const res = await axios.get('https://orca-app-jhg4l.ondigitalocean.app/api/products/cat/' + catId)
-        console.log(res)
-        setProducts(res.data.data)
+    const getProducts = () =>{
+        fetchAPIData(endpoints.CATEGORIES_PRODUCTS_URL + catId)
+            .then((res) => setProducts(res.data.data))
     }
     useEffect(() =>{
-        fetchProducts()
+        getProducts()
     }, [])
   return (
     <div className='sm:col-span-9'>

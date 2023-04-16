@@ -1,17 +1,17 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import CategoryCard from './CategoryCard'
+import { fetchAPIData } from '../utils/api'
+import { endpoints } from '../utils/endpoints'
 
 const Categories = () => {
     const [categories, setCategories] = useState([])
-    const fetchCategories = async () =>{
-        const res = await axios.get('https://orca-app-jhg4l.ondigitalocean.app/api/category')
-        console.log(res)
-        setCategories(res.data.data)
-
+    const getCategories = () =>{
+        fetchAPIData(endpoints.CATEGORIES_URL)
+            .then((res) => setCategories(res.data.data))
     }
     useEffect(() =>{
-        fetchCategories()
+        getCategories()
     }, [])
   return (
     <div className='container mx-auto px-5 mt-12 mb-10'>
