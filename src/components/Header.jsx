@@ -15,14 +15,13 @@ const Header = () => {
     return () => {
       clearInterval(timer);
     };
+      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentIndex]);
 
   return (
     <>
     <div
-      className="h-[90vh] relative bg-center bg-no-repeat bg-cover duration-500"
-      style={{ backgroundImage: `url(${slides[currentIndex].imageUrl})` }}
-    >
+      className="h-[90vh] relative">
       <div className="absolute inset-0 bg-black/50 text-white">
         <div className="mt-[8rem] max-w-[1200px] mx-auto px-5 text-center">
           <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold font-mono uppercase">
@@ -37,6 +36,13 @@ const Header = () => {
           </button>
         </div>
       </div>
+        {
+          slides.map((slide, slideIndex) => {
+            return (
+                <img key={slideIndex} className={currentIndex === slideIndex ? "w-full h-[90vh]" : 'hidden'} src={slide.imageUrl} alt="" />
+            )
+          }) 
+        }
     </div>
     <div className="flex space-x-5 justify-center mt-[-2rem] z-10 relative">
     {slides.map((slide, slideIndex) => {

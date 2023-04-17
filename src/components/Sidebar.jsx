@@ -1,24 +1,45 @@
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { fetchAPIData } from '../utils/api'
 import { endpoints } from '../utils/endpoints'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
+import RingLoader from "react-spinners/RingLoader";
+
 
 const Sidebar = () => {
   const {catId} = useParams()
-  console.log(useParams())
+  // console.log(useParams())
   const [subCategories, setSubCategories] = useState([])
-
+  const [isLoading, setIsLoading] = useState(true)
   const getSubCategories = async () => {
-    const res = await fetchAPIData(endpoints.SUBCATEGORIES_URL + catId)
-    setSubCategories(res.data.data)
+      try {
+        const res = await fetchAPIData(endpoints.SUBCATEGORIES_URL + catId)
+        setSubCategories(res.data.data)
+        setIsLoading(false)
+      } catch (err) {
+        console.log(err.message)
+      }
   }
-
+  
   useEffect(() =>{
     getSubCategories()
+      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const navigate = useNavigate()
+  if(isLoading) {
+    return (
+      <div className='fixed top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%]'>
+        <RingLoader 
+          color='#35d3b4'
+          loading={isLoading}
+          size={50}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+          
+        />
+      </div>
+    )
+  }
+
   return (
     <div className='sm:col-span-3'>
         <div className='sticky top-[5rem] border-2 rounded-md border-black p-4'>

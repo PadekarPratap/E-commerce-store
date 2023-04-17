@@ -3,18 +3,43 @@ import Navbar from '../components/Navbar'
 import { fetchAPIData } from '../utils/api'
 import {endpoints} from '../utils/endpoints'
 import ProductCard from '../components/ProductCard'
+import { ClipLoader } from 'react-spinners'
 
 const AllProductsPage = () => {
     const [allProduct, setAllProduct] = useState([])
+    const [isLoading, setIsLoading] = useState(true)
     const getAllProducts = async () =>{
+       try {
         const res = await fetchAPIData(endpoints.PRODUCT_DETAILS)
         console.log(res)
         setAllProduct(res.data.data)
+        setIsLoading(false)
+       } catch (err) {
+            console.log(err.message)
+       }
     }
 
     useEffect(() =>{
         getAllProducts()
     })
+
+    if(isLoading) {
+        return (
+            <div>
+            <Navbar />
+            <div className='text-center my-[2.5rem]'>
+            <ClipLoader 
+            color='#35d3b4'
+            loading={isLoading}
+            size={30}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+            />
+            </div>
+            </div>
+        )
+    }
+
   return (
     <div>
         <Navbar />

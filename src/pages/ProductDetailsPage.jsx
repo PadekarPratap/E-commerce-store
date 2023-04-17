@@ -3,20 +3,46 @@ import Navbar from "../components/Navbar";
 import { IMAGE_URL, fetchAPIData } from "../utils/api";
 import { endpoints } from "../utils/endpoints";
 import { useParams } from "react-router-dom";
+import PulseLoader from "react-spinners/PulseLoader";
 
 const ProductDetailsPage = () => {
-  const {_id} = useParams()
+  const { _id } = useParams();
   const [product, setProduct] = useState({});
+  const [isLoading, setIsLoading] = useState(true)
 
   const getProducts = async () => {
-    const res = await fetchAPIData(endpoints.PRODUCT_DETAILS + _id);
-    console.log(res);
-    setProduct(res.data.data);
+    try {
+      const res = await fetchAPIData(endpoints.PRODUCT_DETAILS + _id);
+      console.log(res);
+      setProduct(res.data.data);
+      setIsLoading(false)
+
+    } catch (err) {
+      console.log(err.message);
+    }
   };
 
   useEffect(() => {
     getProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  if(isLoading){
+    return (
+      <div>
+        <Navbar />
+        <div className='fixed top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%]'>
+          <PulseLoader
+            color='#35d3b4'
+            loading={isLoading}
+            size={30}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+          />
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="bg-gray-600 h-screen">
@@ -36,12 +62,22 @@ const ProductDetailsPage = () => {
             </h1>
             <p className="text-gray-700 mt-3">{product.description}</p>
             <div className="flex space-x-4 items-center my-5 justify-center md:justify-start">
-              <span className="text-2xl font-semibold">&#8377;{product.price}</span>
-              <span className="text-gray-500"><del>&#8377;{product.mrp}</del></span>
-              <span className="bg-green-500 px-2 text-white rounded">save {Math.ceil(((product.mrp - product.price) / product.mrp) * 100)}%</span>
+              <span className="text-2xl font-semibold">
+                &#8377;{product.price}
+              </span>
+              <span className="text-gray-500">
+                <del>&#8377;{product.mrp}</del>
+              </span>
+              <span className="bg-green-500 px-2 text-white rounded">
+                save{" "}
+                {Math.ceil(((product.mrp - product.price) / product.mrp) * 100)}
+                %
+              </span>
             </div>
             <div className="text-center md:text-left">
-            <button className="px-4 py-2 bg-orange-500 text-white rounded-md ">Add to Cart</button>
+              <button className="px-4 py-2 bg-orange-500 text-white rounded-md ">
+                Add to Cart
+              </button>
             </div>
           </div>
         </div>

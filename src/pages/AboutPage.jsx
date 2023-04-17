@@ -10,7 +10,7 @@ const AboutPage = () => {
           <div className='max-w-[700px] max-h-[500px] mx-auto'>
             <img
               src="https://images.pexels.com/photos/3184432/pexels-photo-3184432.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-              alt="team Image"
+              alt="teams"
             />
           </div>
           <div className="max-w-[1000px] mx-auto">

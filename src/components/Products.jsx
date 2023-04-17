@@ -1,4 +1,3 @@
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import ProductCard from './ProductCard'
 import { fetchAPIData } from '../utils/api'
@@ -14,6 +13,7 @@ const Products = () => {
     }
     useEffect(() =>{
         getProducts()
+          // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
   return (
     <div className='sm:col-span-9'>
