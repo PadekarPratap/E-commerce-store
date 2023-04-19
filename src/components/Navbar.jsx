@@ -15,10 +15,10 @@ const Navbar = () => {
           </div>
           <div className="hidden sm:block">
             <ul className="flex space-x-5">
-              <li><NavLink className={'cursor-pointer'} to={'/'}>Home</NavLink></li>
-              <li><NavLink className={'cursor-pointer'} to={'/products'}>Products</NavLink></li>
-              <li><NavLink className={'cursor-pointer'} to={'/about'}>About</NavLink></li>
-              <li><NavLink className={'cursor-pointer'} to={'/contact'}>Contact</NavLink></li>
+              <li><NavLink className={'cursor-pointer hover:text-[#da2f68]'} to={'/'}>Home</NavLink></li>
+              <li><NavLink className={'cursor-pointer hover:text-[#da2f68]'} to={'/products'}>Products</NavLink></li>
+              <li><NavLink className={'cursor-pointer hover:text-[#da2f68]'} to={'/about'}>About</NavLink></li>
+              <li><NavLink className={'cursor-pointer hover:text-[#da2f68]'} to={'/contact'}>Contact</NavLink></li>
             </ul>
           </div>
 
@@ -55,16 +55,16 @@ const Navbar = () => {
           </div>
           <ul className="flex flex-col space-y-5">
             <li className="text-xl font-medium border-b pb-2 border-gray-900">
-              Home
+            <NavLink className={'cursor-pointer'} to={'/'}>Home</NavLink>
             </li>
             <li className="text-xl font-medium border-b pb-2 border-gray-900">
-              Products
+            <NavLink className={'cursor-pointer'} to={'/products'}>Products</NavLink>
             </li>
             <li className="text-xl font-medium border-b pb-2 border-gray-900">
-              About
+            <NavLink className={'cursor-pointer'} to={'/about'}>About</NavLink>
             </li>
             <li className="text-xl font-medium border-b pb-2 border-gray-900">
-              Contact
+            <NavLink className={'cursor-pointer'} to={'/contact'}>Contact</NavLink>
             </li>
           </ul>
         </div>

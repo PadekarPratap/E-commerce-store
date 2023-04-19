@@ -6,4 +6,7 @@
     .register-background-height{
         min-height: calc(100vh - 60px);
     }
+    a.active{
+        color: #da2f68;
+    }
 }
