@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import * as Yup from 'yup'
+import * as Yup from "yup";
 import YupPassword from "yup-password";
-import {BsExclamationCircleFill} from 'react-icons/bs'
+import { BsExclamationCircleFill } from "react-icons/bs";
 import axios from "axios";
-import { BASE_URL, fetchAPIData } from "../utils/api";
+import { BASE_URL } from "../utils/api";
 import { endpoints } from "../utils/endpoints";
 
 const initialValues = {
@@ -17,23 +17,47 @@ const initialValues = {
 };
 
 const RegisterPage = () => {
-    YupPassword(Yup)
+  YupPassword(Yup);
 
-    const validationSchema = Yup.object({
-        firstName: Yup.string().required("Name is a required field").min(3, "Minimum length should be 3 characters").max(20, "Max length should be 20 characters").matches(/^[^\s]+$/, "Name cannot contain blank spaces").matches(/^([^0-9]*)$/, "Name cannot contain numbers"),
-        email: Yup.string().required("Email is a required field").email("Email is not valid"),
-        mobile: Yup.string().required("Phone Number is a required field"),
-        password: Yup.string().required("Password is a required field").minLowercase(1, "Password must contain atleast on lowercase character").minUppercase(1, "Password must contain atleast one uppercase character").minNumbers(1, "Password must contain atleast one number").min(8, "Password must contain atleast 8 characters").matches(/^[^\s]+$/, "Password cannot contain blank spaces") ,
-        c_password: Yup.string().required("Confirm your password").oneOf([Yup.ref('password'), null], "Passwords must match")
+  const [isAlreadyRegistered, setIsAlreadyRegistered] = useState(false);
 
-    })
+  const validationSchema = Yup.object({
+    firstName: Yup.string()
+      .required("Name is a required field")
+      .min(3, "Minimum length should be 3 characters")
+      .max(20, "Max length should be 20 characters")
+      .matches(/^[^\s]+$/, "Name cannot contain blank spaces")
+      .matches(/^([^0-9]*)$/, "Name cannot contain numbers"),
+    email: Yup.string()
+      .required("Email is a required field")
+      .email("Email is not valid"),
+    mobile: Yup.string().required("Phone Number is a required field"),
+    password: Yup.string()
+      .required("Password is a required field")
+      .minLowercase(1, "Password must contain atleast on lowercase character")
+      .minUppercase(1, "Password must contain atleast one uppercase character")
+      .minNumbers(1, "Password must contain atleast one number")
+      .min(8, "Password must contain atleast 8 characters")
+      .matches(/^[^\s]+$/, "Password cannot contain blank spaces"),
+    c_password: Yup.string()
+      .required("Confirm your password")
+      .oneOf([Yup.ref("password"), null], "Passwords must match"),
+  });
 
-  const handleSubmit = (values) => {
-        axios.post(BASE_URL+ endpoints.REGISTER_USER, values)
-            .then((res) => console.log(res))
-            .catch((err) => console.log(err))
+  const handleSubmit = (values, {resetForm}) => {
+    axios
+      .post(BASE_URL + endpoints.REGISTER_USER, values)
+      .then((res) => {
+        console.log(res);
+        setIsAlreadyRegistered(false)
+        resetForm()
+      })
+      .catch((err) => {
+        console.log(err.message)
+        setIsAlreadyRegistered(true);
+      });
   };
-  
+
   return (
     <div>
       <Navbar />
@@ -42,9 +66,13 @@ const RegisterPage = () => {
           <div className="max-w-[450px] mx-auto px-5 py-[1.5rem] rounded bg-white">
             <div className="mb-8">
               <h2 className="text-3xl font-bold font-mono">Register</h2>
-              <hr className="bg-black/20 h-[1.2px]" />
+              <hr className="bg-black/20 h-[1.1px] mt-1" />
             </div>
-            <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={validationSchema}>
+            <Formik
+              initialValues={initialValues}
+              onSubmit={handleSubmit}
+              validationSchema={validationSchema}
+            >
               {(formik) => (
                 <Form>
                   <div className="relative">
@@ -54,12 +82,26 @@ const RegisterPage = () => {
                     <Field
                       type="text"
                       id="firstName"
-                      className={formik.touched.firstName && formik.errors.firstName ? "rounded border-2 border-red-500 w-full px-4 py-1 text-xl focus:outline-none focus:bg-blue-50" : "rounded border-2 border-black w-full px-4 py-1 text-xl focus:outline-none focus:bg-blue-50"}
+                      className={
+                        formik.touched.firstName && formik.errors.firstName
+                          ? "rounded border border-red-500 w-full px-4 py-1 text-xl focus:outline-none focus:bg-blue-50"
+                          : "rounded border border-black w-full px-4 py-1 text-xl focus:outline-none focus:bg-blue-50"
+                      }
                       placeholder="Enter first name"
                       name="firstName"
                     />
-                    {formik.touched.firstName && formik.errors.firstName && <BsExclamationCircleFill className="absolute right-2 top-9" size={20} color="red"/>}
-                    <ErrorMessage component={"div"} className="text-red-600" name="firstName" />
+                    {formik.touched.firstName && formik.errors.firstName && (
+                      <BsExclamationCircleFill
+                        className="absolute right-2 top-9"
+                        size={20}
+                        color="red"
+                      />
+                    )}
+                    <ErrorMessage
+                      component={"div"}
+                      className="text-red-600"
+                      name="firstName"
+                    />
                   </div>
                   <div className="mt-5 relative">
                     <label htmlFor="email" className="text-xl font-mono">
@@ -69,11 +111,25 @@ const RegisterPage = () => {
                       type="email"
                       id="email"
                       placeholder="Enter email address"
-                      className={formik.touched.email && formik.errors.email ? "rounded border-2 border-red-500 w-full px-4 py-1 text-xl focus:outline-none focus:bg-blue-50" : "rounded border-2 border-black w-full px-4 py-1 text-xl focus:outline-none focus:bg-blue-50"}
+                      className={
+                        formik.touched.email && formik.errors.email
+                          ? "rounded border border-red-500 w-full px-4 py-1 text-xl focus:outline-none focus:bg-blue-50"
+                          : "rounded border border-black w-full px-4 py-1 text-xl focus:outline-none focus:bg-blue-50"
+                      }
                       name="email"
                     />
-                     {formik.touched.email && formik.errors.email && <BsExclamationCircleFill className="absolute right-2 top-9" size={20} color="red"/>}
-                    <ErrorMessage component={"div"} className="text-red-600" name="email" />
+                    {formik.touched.email && formik.errors.email && (
+                      <BsExclamationCircleFill
+                        className="absolute right-2 top-9"
+                        size={20}
+                        color="red"
+                      />
+                    )}
+                    <ErrorMessage
+                      component={"div"}
+                      className="text-red-600"
+                      name="email"
+                    />
                   </div>
                   <div className="mt-5 relative">
                     <label htmlFor="number" className="text-xl font-mono">
@@ -83,11 +139,25 @@ const RegisterPage = () => {
                       type="number"
                       id="number"
                       placeholder="Enter phone number"
-                      className={formik.touched.mobile && formik.errors.mobile ? "rounded border-2 border-red-500 w-full px-4 py-1 text-xl focus:outline-none focus:bg-blue-50" : "rounded border-2 border-black w-full px-4 py-1 text-xl focus:outline-none focus:bg-blue-50"}
+                      className={
+                        formik.touched.mobile && formik.errors.mobile
+                          ? "rounded border border-red-500 w-full px-4 py-1 text-xl focus:outline-none focus:bg-blue-50"
+                          : "rounded border border-black w-full px-4 py-1 text-xl focus:outline-none focus:bg-blue-50"
+                      }
                       name="mobile"
                     />
-                     {formik.touched.mobile && formik.errors.mobile && <BsExclamationCircleFill className="absolute right-2 top-9" size={20} color="red"/>}
-                    <ErrorMessage component={"div"} className="text-red-600" name="mobile" />
+                    {formik.touched.mobile && formik.errors.mobile && (
+                      <BsExclamationCircleFill
+                        className="absolute right-2 top-9"
+                        size={20}
+                        color="red"
+                      />
+                    )}
+                    <ErrorMessage
+                      component={"div"}
+                      className="text-red-600"
+                      name="mobile"
+                    />
                   </div>
                   <div className="mt-5 relative">
                     <label htmlFor="password" className="text-xl font-mono">
@@ -97,11 +167,25 @@ const RegisterPage = () => {
                       type="password"
                       id="password"
                       placeholder="Enter password"
-                      className={formik.touched.password && formik.errors.password ? "rounded border-2 border-red-500 w-full px-4 py-1 text-xl focus:outline-none focus:bg-blue-50" : "rounded border-2 border-black w-full px-4 py-1 text-xl focus:outline-none focus:bg-blue-50"}
+                      className={
+                        formik.touched.password && formik.errors.password
+                          ? "rounded border border-red-500 w-full px-4 py-1 text-xl focus:outline-none focus:bg-blue-50"
+                          : "rounded border border-black w-full px-4 py-1 text-xl focus:outline-none focus:bg-blue-50"
+                      }
                       name="password"
                     />
-                     {formik.touched.password && formik.errors.password && <BsExclamationCircleFill className="absolute right-2 top-9" size={20} color="red"/>}
-                    <ErrorMessage component={"div"} className="text-red-600" name="password" />
+                    {formik.touched.password && formik.errors.password && (
+                      <BsExclamationCircleFill
+                        className="absolute right-2 top-9"
+                        size={20}
+                        color="red"
+                      />
+                    )}
+                    <ErrorMessage
+                      component={"div"}
+                      className="text-red-600"
+                      name="password"
+                    />
                   </div>
                   <div className="mt-5 relative">
                     <label
@@ -114,11 +198,28 @@ const RegisterPage = () => {
                       type="password"
                       id="confirm-password"
                       placeholder="Confirm password"
-                      className={formik.touched.c_password && formik.errors.c_password ? "rounded border-2 border-red-500 w-full px-4 py-1 text-xl focus:outline-none focus:bg-blue-50" : "rounded border-2 border-black w-full px-4 py-1 text-xl focus:outline-none focus:bg-blue-50"}
+                      className={
+                        formik.touched.c_password && formik.errors.c_password
+                          ? "rounded border border-red-500 w-full px-4 py-1 text-xl focus:outline-none focus:bg-blue-50"
+                          : "rounded border border-black w-full px-4 py-1 text-xl focus:outline-none focus:bg-blue-50"
+                      }
                       name="c_password"
                     />
-                     {formik.touched.c_password && formik.errors.c_password && <BsExclamationCircleFill className="absolute right-2 top-9" size={20} color="red"/>}
-                    <ErrorMessage component={"div"} className="text-red-600" name="c_password" />
+                    {formik.touched.c_password && formik.errors.c_password && (
+                      <BsExclamationCircleFill
+                        className="absolute right-2 top-9"
+                        size={20}
+                        color="red"
+                      />
+                    )}
+                    <ErrorMessage
+                      component={"div"}
+                      className="text-red-600"
+                      name="c_password"
+                    />
+                  </div>
+                  <div className="text-center mt-5">
+                  {isAlreadyRegistered && <span className="text-red-500">This Email is already registered.</span>}
                   </div>
                   <div className="mt-5 text-center">
                     <input
