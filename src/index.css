@@ -9,4 +9,29 @@
     a.active{
         color: #da2f68;
     }
+    .before-bar::before{
+        content: '';
+        width: 22%;
+        height: 15px;
+        background-color: #da2f68;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 0px;
+    }
+    .before-bar::after{
+        content: '';
+        width: 22%;
+        height: 15px;
+        background-color: #da2f68;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 0px;
+    }
+    @media (min-width: 1024px) {
+        .before-bar::before, .before-bar::after{
+            width: 0px;
+        }
+    }
 }

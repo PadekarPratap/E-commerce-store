@@ -42,10 +42,13 @@ const Sidebar = () => {
 
   return (
     <div className='sm:col-span-3'>
-        <div className='sticky top-[5rem] border-2 rounded-md border-black p-4'>
+        <div className='sticky top-[5rem] border rounded-md border-black p-4'>
+          <div className='text-center mb-6'>
+            <h4 className='text-2xl sm:hidden lg:block font-bold before-bar relative'>Subcategory</h4>
+          </div>
         {
           subCategories.map(subCategory => {
-            return <div key={subCategory.subId} className='border-b-2 mb-4 border-gray-950 text-center'>
+            return <div key={subCategory.subId} className='border-b mb-4 border-gray-950 text-center'>
               <span>{subCategory.subName}</span>
             </div>
           })
