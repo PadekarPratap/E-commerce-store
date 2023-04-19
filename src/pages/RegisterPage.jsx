@@ -4,11 +4,14 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from 'yup'
 import YupPassword from "yup-password";
 import {BsExclamationCircleFill} from 'react-icons/bs'
+import axios from "axios";
+import { BASE_URL, fetchAPIData } from "../utils/api";
+import { endpoints } from "../utils/endpoints";
 
 const initialValues = {
   firstName: "",
   email: "",
-  number: "",
+  mobile: "",
   password: "",
   c_password: "",
 };
@@ -19,15 +22,18 @@ const RegisterPage = () => {
     const validationSchema = Yup.object({
         firstName: Yup.string().required("Name is a required field").min(3, "Minimum length should be 3 characters").max(20, "Max length should be 20 characters").matches(/^[^\s]+$/, "Name cannot contain blank spaces").matches(/^([^0-9]*)$/, "Name cannot contain numbers"),
         email: Yup.string().required("Email is a required field").email("Email is not valid"),
-        number: Yup.string().required("Phone Number is a required field"),
+        mobile: Yup.string().required("Phone Number is a required field"),
         password: Yup.string().required("Password is a required field").minLowercase(1, "Password must contain atleast on lowercase character").minUppercase(1, "Password must contain atleast one uppercase character").minNumbers(1, "Password must contain atleast one number").min(8, "Password must contain atleast 8 characters").matches(/^[^\s]+$/, "Password cannot contain blank spaces") ,
         c_password: Yup.string().required("Confirm your password").oneOf([Yup.ref('password'), null], "Passwords must match")
 
     })
 
-  const handleSubmit = async (values) => {
-    console.log(values);
+  const handleSubmit = (values) => {
+        axios.post(BASE_URL+ endpoints.REGISTER_USER, values)
+            .then((res) => console.log(res))
+            .catch((err) => console.log(err))
   };
+  
   return (
     <div>
       <Navbar />
@@ -36,7 +42,7 @@ const RegisterPage = () => {
           <div className="max-w-[450px] mx-auto px-5 py-[1.5rem] rounded bg-white">
             <div className="mb-8">
               <h2 className="text-3xl font-bold font-mono">Register</h2>
-              <hr className="bg-black/20 h-[2px]" />
+              <hr className="bg-black/20 h-[1.2px]" />
             </div>
             <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={validationSchema}>
               {(formik) => (
@@ -77,11 +83,11 @@ const RegisterPage = () => {
                       type="number"
                       id="number"
                       placeholder="Enter phone number"
-                      className={formik.touched.number && formik.errors.number ? "rounded border-2 border-red-500 w-full px-4 py-1 text-xl focus:outline-none focus:bg-blue-50" : "rounded border-2 border-black w-full px-4 py-1 text-xl focus:outline-none focus:bg-blue-50"}
-                      name="number"
+                      className={formik.touched.mobile && formik.errors.mobile ? "rounded border-2 border-red-500 w-full px-4 py-1 text-xl focus:outline-none focus:bg-blue-50" : "rounded border-2 border-black w-full px-4 py-1 text-xl focus:outline-none focus:bg-blue-50"}
+                      name="mobile"
                     />
-                     {formik.touched.number && formik.errors.number && <BsExclamationCircleFill className="absolute right-2 top-9" size={20} color="red"/>}
-                    <ErrorMessage component={"div"} className="text-red-600" name="number" />
+                     {formik.touched.mobile && formik.errors.mobile && <BsExclamationCircleFill className="absolute right-2 top-9" size={20} color="red"/>}
+                    <ErrorMessage component={"div"} className="text-red-600" name="mobile" />
                   </div>
                   <div className="mt-5 relative">
                     <label htmlFor="password" className="text-xl font-mono">

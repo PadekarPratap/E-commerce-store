@@ -1,7 +1,7 @@
 import axios from "axios"
 
 
-const BASE_URL = 'https://orca-app-jhg4l.ondigitalocean.app/api/'
+export const BASE_URL = 'https://orca-app-jhg4l.ondigitalocean.app/api/'
 export const IMAGE_URL = `http://rjtmobile.com/grocery/images/`
 
 export const fetchAPIData = async (url, params) =>{
