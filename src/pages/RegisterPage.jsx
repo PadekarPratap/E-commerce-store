@@ -77,7 +77,7 @@ const RegisterPage = () => {
                 <Form>
                   <div className="relative">
                     <label htmlFor="firstName" className="text-xl font-mono">
-                      First Name
+                      First Name<sup className="text-red-500">*</sup>
                     </label>
                     <Field
                       type="text"
@@ -105,7 +105,7 @@ const RegisterPage = () => {
                   </div>
                   <div className="mt-5 relative">
                     <label htmlFor="email" className="text-xl font-mono">
-                      Email
+                      Email<sup className="text-red-500">*</sup>
                     </label>
                     <Field
                       type="email"
@@ -133,7 +133,7 @@ const RegisterPage = () => {
                   </div>
                   <div className="mt-5 relative">
                     <label htmlFor="number" className="text-xl font-mono">
-                      Phone No.
+                      Phone No.<sup className="text-red-500">*</sup>
                     </label>
                     <Field
                       type="number"
@@ -161,7 +161,7 @@ const RegisterPage = () => {
                   </div>
                   <div className="mt-5 relative">
                     <label htmlFor="password" className="text-xl font-mono">
-                      Password
+                      Password<sup className="text-red-500">*</sup>
                     </label>
                     <Field
                       type="password"
@@ -192,7 +192,7 @@ const RegisterPage = () => {
                       htmlFor="confirm-password"
                       className="text-xl font-mono"
                     >
-                      Confirm Password
+                      Confirm Password<sup className="text-red-500">*</sup>
                     </label>
                     <Field
                       type="password"
