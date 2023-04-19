@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { fetchAPIData } from '../utils/api'
+import { BASE_URL, fetchAPIData } from '../utils/api'
 import { endpoints } from '../utils/endpoints'
 import { useParams } from 'react-router-dom'
 import RingLoader from "react-spinners/RingLoader";
+import axios from 'axios';
 
 
 const Sidebar = () => {
@@ -12,7 +13,7 @@ const Sidebar = () => {
   const [isLoading, setIsLoading] = useState(true)
   const getSubCategories = async () => {
       try {
-        const res = await fetchAPIData(endpoints.SUBCATEGORIES_URL + catId)
+        const res = await axios.get(BASE_URL + endpoints.SUBCATEGORIES_URL + catId)
         setSubCategories(res.data.data)
         setIsLoading(false)
       } catch (err) {

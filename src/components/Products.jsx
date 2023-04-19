@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import ProductCard from './ProductCard'
-import { fetchAPIData } from '../utils/api'
+import { BASE_URL, fetchAPIData } from '../utils/api'
 import { endpoints } from '../utils/endpoints'
 import { useParams } from 'react-router-dom'
+import axios from 'axios'
 
 const Products = () => {
     const {catId} = useParams()
     const [products, setProducts] = useState([])
-    const getProducts = () =>{
-        fetchAPIData(endpoints.CATEGORIES_PRODUCTS_URL + catId)
-            .then((res) => setProducts(res.data.data))
+    const getProducts = async () =>{
+        try {
+            const res = await axios.get(BASE_URL + endpoints.CATEGORIES_PRODUCTS_URL + catId)
+            setProducts(res.data.data)
+        } catch (err) {
+            console.log(err.message)
+        }
     }
     useEffect(() =>{
         getProducts()

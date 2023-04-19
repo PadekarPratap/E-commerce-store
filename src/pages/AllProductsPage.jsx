@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
-import { fetchAPIData } from '../utils/api'
+import { BASE_URL, fetchAPIData } from '../utils/api'
 import {endpoints} from '../utils/endpoints'
 import ProductCard from '../components/ProductCard'
 import { ClipLoader } from 'react-spinners'
+import axios from 'axios'
 
 const AllProductsPage = () => {
     const [allProduct, setAllProduct] = useState([])
     const [isLoading, setIsLoading] = useState(true)
     const getAllProducts = async () =>{
        try {
-        const res = await fetchAPIData(endpoints.PRODUCT_DETAILS)
-        console.log(res)
+        const res = await axios.get(BASE_URL + endpoints.PRODUCT_DETAILS)
+        // console.log(res)
         setAllProduct(res.data.data)
         setIsLoading(false)
        } catch (err) {

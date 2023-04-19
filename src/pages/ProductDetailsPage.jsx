@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-import { IMAGE_URL, fetchAPIData } from "../utils/api";
+import { BASE_URL, IMAGE_URL, fetchAPIData } from "../utils/api";
 import { endpoints } from "../utils/endpoints";
 import { useParams } from "react-router-dom";
 import PulseLoader from "react-spinners/PulseLoader";
+import axios from "axios";
 
 const ProductDetailsPage = () => {
   const { _id } = useParams();
@@ -12,11 +13,10 @@ const ProductDetailsPage = () => {
 
   const getProducts = async () => {
     try {
-      const res = await fetchAPIData(endpoints.PRODUCT_DETAILS + _id);
-      console.log(res);
+      const res = await axios.get(BASE_URL + endpoints.PRODUCT_DETAILS + _id);
+      // console.log(res);
       setProduct(res.data.data);
       setIsLoading(false)
-
     } catch (err) {
       console.log(err.message);
     }

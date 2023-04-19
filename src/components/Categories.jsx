@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import CategoryCard from './CategoryCard'
-import { fetchAPIData } from '../utils/api'
+import { BASE_URL, fetchAPIData } from '../utils/api'
 import { endpoints } from '../utils/endpoints'
 import ClipLoader from "react-spinners/ClipLoader";
+import axios from 'axios';
 
 const Categories = () => {
     const [categories, setCategories] = useState([])
     const [isLoading, setIsLoading] = useState(true)
-    const getCategories =  () =>{
-        fetchAPIData(endpoints.CATEGORIES_URL) 
-            .then((res) => {
-                // console.log(res)
-                setCategories(res.data.data)
-                setIsLoading(false)
-            })
-            .catch(err => alert(err.message))
-            
+    const getCategories = async () =>{  
+        try {
+            const res = await axios.get(BASE_URL + endpoints.CATEGORIES_URL)
+            setCategories(res.data.data)
+            setIsLoading(false)
+        } catch (err) {
+            console.log(err.message)
+        }
     }
     useEffect(() =>{
         getCategories()
