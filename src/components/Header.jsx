@@ -31,7 +31,7 @@ const Header = () => {
             Get the best food products from a wide range of categories at
             affordable prices!
           </p>
-          <button onClick={() => navigate('/products')} className="bg-orange-500 px-4 py-1 font-medium md:text-2xl">
+          <button onClick={() => navigate('/products')} className="bg-orange-500 px-4 py-1 font-medium md:text-2xl hover:shadow-xl">
             Explore Now!
           </button>
         </div>
