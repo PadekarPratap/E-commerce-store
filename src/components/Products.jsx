@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import ProductCard from './ProductCard'
-import { BASE_URL, fetchAPIData } from '../utils/api'
+import { BASE_URL } from '../utils/api'
 import { endpoints } from '../utils/endpoints'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
-import { BASE_URL, fetchAPIData } from '../utils/api'
+import { BASE_URL } from '../utils/api'
 import {endpoints} from '../utils/endpoints'
 import ProductCard from '../components/ProductCard'
 import { ClipLoader } from 'react-spinners'

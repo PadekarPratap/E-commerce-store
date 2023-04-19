@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import CategoryCard from './CategoryCard'
-import { BASE_URL, fetchAPIData } from '../utils/api'
+import { BASE_URL } from '../utils/api'
 import { endpoints } from '../utils/endpoints'
 import ClipLoader from "react-spinners/ClipLoader";
 import axios from 'axios';
