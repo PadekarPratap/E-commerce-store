@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .register-background-height{
+        min-height: calc(100vh - 60px);
+    }
+}

@@ -10,5 +10,6 @@ export const fetchAPIData = async (url, params) =>{
         return res
     } catch (err) {
         console.log(err.message)
+        return err
     }
 }

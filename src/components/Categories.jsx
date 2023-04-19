@@ -7,14 +7,14 @@ import ClipLoader from "react-spinners/ClipLoader";
 const Categories = () => {
     const [categories, setCategories] = useState([])
     const [isLoading, setIsLoading] = useState(true)
-    const getCategories = async () =>{
-        try{
-            const res = await fetchAPIData(endpoints.CATEGORIES_URL)
-            setCategories(res.data.data)
-            setIsLoading(false)
-        }catch(err){
-            console.log(err.message)
-        }
+    const getCategories =  () =>{
+        fetchAPIData(endpoints.CATEGORIES_URL) 
+            .then((res) => {
+                // console.log(res)
+                setCategories(res.data.data)
+                setIsLoading(false)
+            })
+            .catch(err => alert(err.message))
             
     }
     useEffect(() =>{

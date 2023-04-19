@@ -39,7 +39,7 @@ const Header = () => {
         {
           slides.map((slide, slideIndex) => {
             return (
-                <img key={slideIndex} className={currentIndex === slideIndex ? "w-full h-[90vh]" : 'hidden'} src={slide.imageUrl} alt="" />
+                <img key={slideIndex} className={currentIndex === slideIndex ? "w-full h-[90vh] object-cover object-center" : 'hidden'} src={slide.imageUrl} alt="" />
             )
           }) 
         }
