@@ -7,6 +7,7 @@ import { BsExclamationCircleFill } from "react-icons/bs";
 import axios from "axios";
 import { BASE_URL } from "../utils/api";
 import { endpoints } from "../utils/endpoints";
+import { NavLink } from "react-router-dom";
 
 const initialValues = {
   firstName: "",
@@ -232,7 +233,7 @@ const RegisterPage = () => {
               )}
             </Formik>
             <div className="mt-5 text-center">
-              <span>Already have an Account? Login</span>
+              <span>Already have an Account? <NavLink to={"/login"}>Login</NavLink></span>
             </div>
           </div>
         </div>

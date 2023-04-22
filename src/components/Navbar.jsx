@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import { HiMenu } from "react-icons/hi";
 import { HiOutlineXMark } from "react-icons/hi2";
 import { NavLink, useNavigate } from "react-router-dom";
+import {HiShoppingCart} from 'react-icons/hi'
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
+  const cart = useSelector((state) => state.Cart.cart)
   const navigate = useNavigate()
   const [isNavOpen, setIsNavOpen] = useState(false);
   return (
@@ -13,7 +16,7 @@ const Navbar = () => {
           <div>
             <h2 onClick={() => navigate('/')} className="text-2xl font-bold font-mono cursor-pointer uppercase">React Store</h2>
           </div>
-          <div className="hidden sm:block">
+          <div className="hidden md:block">
             <ul className="flex space-x-5">
               <li><NavLink className={'cursor-pointer hover:text-[#da2f68]'} to={'/'}>Home</NavLink></li>
               <li><NavLink className={'cursor-pointer hover:text-[#da2f68]'} to={'/products'}>Products</NavLink></li>
@@ -22,7 +25,16 @@ const Navbar = () => {
             </ul>
           </div>
 
-          <div className="sm:hidden cursor-pointer">
+          <div className="hidden md:flex items-center space-x-4">
+            <button onClick={() => navigate('/login')} className="border-2 border-black rounded-lg p-2 hover:border-white">Login</button>
+            <button onClick={() => navigate('/register')} className="px-2 py-2 bg-white text-black rounded-lg">Sign Up</button>
+            <div className="relative cursor-pointer">
+              <div className="absolute p-[12px] top-[-10px] right-[-13px] h-[20px] w-[20px] bg-red-700 rounded-full flex items-center justify-center">{cart.length}</div>
+              <HiShoppingCart size={30} />
+            </div>
+          </div>
+
+          <div className="md:hidden cursor-pointer">
             <HiMenu size={30} onClick={() => setIsNavOpen(true)} />
           </div>
         </div>
