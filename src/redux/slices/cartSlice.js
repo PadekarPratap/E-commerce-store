@@ -47,7 +47,10 @@ export const cartSlice = createSlice({
             state.itemsInCart += 1
         },
         REMOVE_FROM_CART: (state, action) =>{
-
+            const itemQty = state.cart.find((item) => item._id === action.payload._id)
+            state.cart = state.cart.filter((item) => item._id !== action.payload._id)
+            sessionStorage.setItem('Cart', JSON.stringify(state.cart))
+            state.itemsInCart -= itemQty.quantity
         },
         INCREASE_QUANTITY: (state, action) =>{
 

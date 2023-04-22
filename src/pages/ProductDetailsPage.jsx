@@ -6,25 +6,26 @@ import { useParams } from "react-router-dom";
 import PulseLoader from "react-spinners/PulseLoader";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { ADD_TO_CART } from "../redux/slices/cartSlice";
-import {BsCheck2Square} from 'react-icons/bs'
+import { ADD_TO_CART, REMOVE_FROM_CART } from "../redux/slices/cartSlice";
+import { BsCheck2Square } from "react-icons/bs";
 import { toast } from "react-hot-toast";
 
 const ProductDetailsPage = () => {
   const { _id } = useParams();
   const [product, setProduct] = useState({});
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true);
 
-  const dispatch = useDispatch()
-  const cart = useSelector((state) => state.Cart.cart)
-  const isItemAddedToCart = cart.findIndex((item) => item._id === product._id) === -1
+  const dispatch = useDispatch();
+  const cart = useSelector((state) => state.Cart.cart);
+  const isItemNotAddedToCart =
+    cart.findIndex((item) => item._id === product._id) === -1;
 
   const getProducts = async () => {
     try {
       const res = await axios.get(BASE_URL + endpoints.PRODUCT_DETAILS + _id);
       // console.log(res);
       setProduct(res.data.data);
-      setIsLoading(false)
+      setIsLoading(false);
     } catch (err) {
       console.log(err.message);
     }
@@ -35,13 +36,13 @@ const ProductDetailsPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if(isLoading){
+  if (isLoading) {
     return (
       <div>
         <Navbar />
-        <div className='fixed top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%]'>
+        <div className="fixed top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%]">
           <PulseLoader
-            color='#35d3b4'
+            color="#35d3b4"
             loading={isLoading}
             size={30}
             aria-label="Loading Spinner"
@@ -49,7 +50,7 @@ const ProductDetailsPage = () => {
           />
         </div>
       </div>
-    )
+    );
   }
 
   return (
@@ -82,12 +83,32 @@ const ProductDetailsPage = () => {
                 %
               </span>
             </div>
-            <div className="text-center md:text-left">
-              <button onClick={() => {
-                dispatch(ADD_TO_CART(product))
-                toast.success("Item has been successfully added to your Cart")
-                }} className="flex gap-3 items-center px-4 py-2 bg-orange-500 text-white rounded-md">
-                {isItemAddedToCart ? null : <BsCheck2Square />}{isItemAddedToCart ? 'Add to Cart' :  `Added to Cart`}
+            <div className="text-center md:text-left space-x-6">
+              <button
+                onClick={() => {
+                  dispatch(ADD_TO_CART(product));
+                  toast.success(
+                    "Item has been successfully added to your Cart"
+                  );
+                }}
+                className="inline-flex gap-3 items-center px-4 py-2 bg-orange-500 text-white rounded-sm"
+              >
+                {isItemNotAddedToCart ? null : <BsCheck2Square size={13} />}
+                {isItemNotAddedToCart ? "Add to Cart" : `Added to Cart`}
+              </button>
+              <button
+                onClick={() => {
+                  dispatch(REMOVE_FROM_CART(product));
+                  toast.success(
+                    "The item has been successfully removed from the cart"
+                  );
+                }}
+                disabled={isItemNotAddedToCart}
+                className={`px-4 py-2 ${
+                  isItemNotAddedToCart ? "bg-gray-200" : "bg-black"
+                } text-white rounded-sm`}
+              >
+                Remove from Cart
               </button>
             </div>
           </div>
