@@ -1,8 +1,29 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const getInitialCart = () =>{
+    const cart = sessionStorage.getItem('Cart')
+    if(cart){
+        return JSON.parse(cart)
+    }else{
+        return []
+    }
+}
+
+const getInitialItemsInCart = () =>{
+    const cart = sessionStorage.getItem('Cart')
+    if(cart){
+        const cartItems = JSON.parse(cart).reduce((accumulator, currentItem) =>{
+            return accumulator + currentItem.quantity
+        }, 0)
+        return cartItems
+    }else{
+        return 0
+    }
+}
+
 const initialState ={
-    itemsInCart: 0,
-    cart: []
+    itemsInCart: getInitialItemsInCart(),
+    cart: getInitialCart()
 }
 
 export const cartSlice = createSlice({
@@ -14,15 +35,18 @@ export const cartSlice = createSlice({
                 const itemIndex = state.cart.findIndex((item) => item._id === action.payload._id)
                 if(itemIndex >= 0){
                     state.cart[itemIndex].quantity += 1
+                    sessionStorage.setItem('Cart', JSON.stringify(state.cart))
                 }else{
                     state.cart.push({...action.payload, quantity: 1})
+                    sessionStorage.setItem('Cart', JSON.stringify(state.cart))
                 }
             }else{
                 state.cart.push({...action.payload, quantity: 1})
+                sessionStorage.setItem('Cart', JSON.stringify(state.cart))
             }
             state.itemsInCart += 1
         },
-        REMOVE_CART: (state, action) =>{
+        REMOVE_FROM_CART: (state, action) =>{
 
         },
         INCREASE_QUANTITY: (state, action) =>{
@@ -37,5 +61,5 @@ export const cartSlice = createSlice({
     }
 })
 
-export const {ADD_TO_CART, REMOVE_CART, INCREASE_QUANTITY, DECREASE_QUANTITY, NUMBER_CART} = cartSlice.actions
+export const {ADD_TO_CART, REMOVE_FROM_CART, INCREASE_QUANTITY, DECREASE_QUANTITY, NUMBER_CART} = cartSlice.actions
 export default cartSlice.reducer
