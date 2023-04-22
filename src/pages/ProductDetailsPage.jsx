@@ -5,11 +5,19 @@ import { endpoints } from "../utils/endpoints";
 import { useParams } from "react-router-dom";
 import PulseLoader from "react-spinners/PulseLoader";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { ADD_TO_CART } from "../redux/slices/cartSlice";
+import {BsCheck2Square} from 'react-icons/bs'
+import { toast } from "react-hot-toast";
 
 const ProductDetailsPage = () => {
   const { _id } = useParams();
   const [product, setProduct] = useState({});
   const [isLoading, setIsLoading] = useState(true)
+
+  const dispatch = useDispatch()
+  const cart = useSelector((state) => state.Cart.cart)
+  const isItemAddedToCart = cart.findIndex((item) => item._id === product._id) === -1
 
   const getProducts = async () => {
     try {
@@ -75,8 +83,11 @@ const ProductDetailsPage = () => {
               </span>
             </div>
             <div className="text-center md:text-left">
-              <button className="px-4 py-2 bg-orange-500 text-white rounded-md ">
-                Add to Cart
+              <button onClick={() => {
+                dispatch(ADD_TO_CART(product))
+                toast.success("Item has been successfully added to your Cart")
+                }} className="flex gap-3 items-center px-4 py-2 bg-orange-500 text-white rounded-md">
+                {isItemAddedToCart ? null : <BsCheck2Square />}{isItemAddedToCart ? 'Add to Cart' :  `Added to Cart`}
               </button>
             </div>
           </div>

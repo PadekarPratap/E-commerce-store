@@ -4,5 +4,6 @@ export const endpoints = {
     SUBCATEGORIES_URL: 'subcategory/',
     CATEGORIES_PRODUCTS_URL: 'products/cat/',
     PRODUCT_DETAILS: 'products/',
-    REGISTER_USER: 'auth/register'
+    REGISTER_USER: 'auth/register',
+    LOGIN_USER: 'auth/login'
 }
