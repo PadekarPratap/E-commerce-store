@@ -5,6 +5,7 @@ import ItemInCart from "../components/ItemInCart";
 
 const CartPage = () => {
   const cart = useSelector((state) => state.Cart.cart);
+
   return (
     <div className="bg-gray-100 min-h-[100vh]">
       <Navbar />
@@ -26,7 +27,7 @@ const CartPage = () => {
 
           <div>
             {cart.length > 0 && cart.map((cartItem) =>(
-                <ItemInCart key={crypto.randomUUID()} cartItem={cartItem} />
+                <ItemInCart key={cartItem._id} cartItem={cartItem} />
             ))}
           </div>
         </div>
