@@ -18,7 +18,7 @@ const Navbar = () => {
               onClick={() => navigate("/")}
               className="text-2xl font-bold font-mono cursor-pointer uppercase"
             >
-              React Store
+              Fresh Harvest
             </h2>
           </div>
           <div className="hidden md:block">

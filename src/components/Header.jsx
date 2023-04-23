@@ -21,12 +21,11 @@ const Header = () => {
   return (
     <>
       <div className="h-[90vh] relative">
-
         {/* overlay text  */}
         <div className="absolute inset-0 bg-black/50 text-white">
           <div className="mt-[8rem] max-w-[1200px] mx-auto px-5 text-center">
             <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold font-mono uppercase">
-              React Store
+              Fresh Harvest
             </h1>
             <p className="md:text-lg lg:text-2xl font-semibold mb-8 mt-3">
               Get the best food products from a wide range of categories at
