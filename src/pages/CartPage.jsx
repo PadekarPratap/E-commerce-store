@@ -6,6 +6,13 @@ import ItemInCart from "../components/ItemInCart";
 const CartPage = () => {
   const cart = useSelector((state) => state.Cart.cart);
 
+  const getTotalPrice = () =>{
+    return cart.reduce((acc, value) =>{
+          acc += value.price * value.quantity
+          return Math.ceil(acc)
+    }, 0)
+  }
+
   return (
     <div className="bg-gray-100 min-h-[100vh]">
       <Navbar />
@@ -22,14 +29,25 @@ const CartPage = () => {
               </h1>
             )}
           </div>
-          <div className="mt-3 text-right">Price</div>
-          <hr  />
+          {cart.length > 0 && (
+            <>
+              <div className="mt-3 text-right hidden sm:block">Price</div>
+              <hr />
+            </>
+          )}
 
           <div>
-            {cart.length > 0 && cart.map((cartItem) =>(
+            {cart.length > 0 &&
+              cart.map((cartItem) => (
                 <ItemInCart key={cartItem._id} cartItem={cartItem} />
-            ))}
+              ))}
           </div>
+          {cart.length > 0 && <div className="bg-blue-100 py-2 px-2 rounded-lg flex justify-between">
+              <div>
+                <p className="text-xl font-bold">Total Price:</p>
+              </div>
+              <div className="text-xl font-bold">&#8377;{getTotalPrice()}</div>
+          </div>}
         </div>
       </div>
     </div>
