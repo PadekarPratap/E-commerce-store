@@ -9,6 +9,7 @@ import AllProductsPage from './pages/AllProductsPage'
 import RegisterPage from './pages/RegisterPage'
 import LoginPage from './pages/LoginPage'
 import { Toaster } from 'react-hot-toast'
+import CartPage from './pages/CartPage'
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
         <Route path='/contact' element={<ContactsPage />}  />
         <Route path='/register' element={<RegisterPage />}  />
         <Route path='/login' element={<LoginPage />}  />
+        <Route path='/cart' element={<CartPage />}  />
       </Routes>
       <Toaster position='bottom-right' />
     </div>

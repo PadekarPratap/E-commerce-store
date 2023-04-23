@@ -71,19 +71,19 @@ const Navbar = () => {
             >
               Sign Up
             </button>
-            <div className="relative cursor-pointer">
-              <div className="absolute p-[12px] top-[-10px] right-[-13px] h-[20px] w-[20px] bg-red-700 rounded-full flex items-center justify-center">
+            <div className="relative cursor-pointer" role="button" onClick={() => navigate('/cart')}>
+              {cart.length > 0 && <div className="absolute p-[12px] top-[-10px] right-[-13px] h-[20px] w-[20px] bg-red-700 rounded-full flex items-center justify-center">
                 {cart.length}
-              </div>
+              </div>}
               <HiShoppingCart size={30} />
             </div>
           </div>
 
-          <div className="md:hidden flex space-x-7">
+          <div className="md:hidden flex space-x-7" onClick={() => navigate('/cart')}>
             <div className="relative cursor-pointer md:hidden">
-              <div className="absolute p-[12px] top-[-10px] right-[-13px] h-[20px] w-[20px] bg-red-700 rounded-full flex items-center justify-center">
+              {cart.length > 0 && <div className="absolute p-[12px] top-[-10px] right-[-13px] h-[20px] w-[20px] bg-red-700 rounded-full flex items-center justify-center">
                 {cart.length}
-              </div>
+              </div>}
               <HiShoppingCart size={30} />
             </div>
             <HiMenu className="cursor-pointer" size={30} onClick={() => setIsNavOpen(true)} />
