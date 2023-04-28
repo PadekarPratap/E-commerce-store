@@ -83,7 +83,7 @@ const ProductDetailsPage = () => {
                 %
               </span>
             </div>
-            <div className="text-center md:text-left space-x-6">
+            <div className="text-center md:text-left md:space-x-3">
               <button
                 onClick={() => {
                   dispatch(ADD_TO_CART(product));
