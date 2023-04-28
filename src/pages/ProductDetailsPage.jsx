@@ -60,7 +60,7 @@ const ProductDetailsPage = () => {
         <div className="grid md:grid-cols-2 gap-[2rem] border-2 border-gray-950 bg-white rounded-lg">
           <div>
             <img
-              className="rounded-lg w-full max-h-[500px] object-cover object-center"
+              className="rounded-lg w-full h-full object-cover object-center"
               src={IMAGE_URL + product.image}
               alt={product.productName}
             />
@@ -83,7 +83,7 @@ const ProductDetailsPage = () => {
                 %
               </span>
             </div>
-            <div className="text-center md:text-left space-y-3 md:space-x-3">
+            <div className="flex flex-col items-center md:flex-row gap-3">
               <button
                 onClick={() => {
                   dispatch(ADD_TO_CART(product));
