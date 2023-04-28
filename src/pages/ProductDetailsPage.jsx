@@ -54,7 +54,7 @@ const ProductDetailsPage = () => {
   }
 
   return (
-    <div className="bg-gray-600 h-screen">
+    <div className="bg-gray-600 min-h-screen">
       <Navbar />
       <div className="container mx-auto px-5 mt-12">
         <div className="grid md:grid-cols-2 gap-[2rem] border-2 border-gray-950 bg-white rounded-lg">
